@@ -1,6 +1,7 @@
 ### import libraries
 import math
 
+
 ### media transformation functions
 
 
@@ -25,13 +26,14 @@ def dim_returns(x, a):
     return (1 - math.exp(-x / a))
 
 
-def ad_stock(x, factor=0):
+def ad_stock(x, factor):
     """
     Returns an ad-stocked vector from vector x with defined ad-stock factor
     """
     ad_stock_vector = []
-    ad_stock_value = 0
-    for single_row in x:
-        ad_stock_value = single_row + ad_stock_value * factor
-        ad_stock_vector.append(ad_stock_value)
-    return(np.array(ad_stock_vector))
+    for n in range(len(x)):
+        if n == 0:
+            ad_stock_vector.append(x[n])
+        else:
+            ad_stock_vector.append(x[n] + ad_stock_vector[n-1] * factor)
+    return ad_stock_vector
